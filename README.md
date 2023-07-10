@@ -4,7 +4,5 @@
 
 #### Linguagens utilizadas: 
 - C/C++.
-- Java.
-- Python.
 
 #### Este repositorio será atualizado conforme o andamento do curso.
