@@ -1,5 +1,10 @@
-### **TITLE** ###
+### Aqui estão algumas atividades desenvolvidas ao longo do curso de Redes de Computadores da Universidade Federal do Ceará (UFC).
 
-Aqui estão alguns projetos feitos para as disciplinas de ***Fundamentos de programação*** e, atualmente, ***Programação orientada à objetos***.
+#### Disciplinas de Fundamentos de Programação e Programação Orientada a Objetos.
 
-A linguagem principal utilizada é ***C++***
+#### Linguagens utilizadas: 
+- C/C++.
+- Java.
+- Python.
+
+#### Este repositorio será atualizado conforme o andamento do curso.
