@@ -2,9 +2,9 @@
 ### Este repositório será atualizado conforme o andamento do curso.
 
 ## Disciplinas
-- [Fundamentos de Programação](https://github.com/georgerrsv/UFC/tree/main/UFC/fup)
-- [Programação Orientada a Objetos](https://github.com/georgerrsv/UFC/tree/main/UFC/poo)
-- [Sistemas Distribuídos](https://github.com/georgerrsv/UFC/tree/main/UFC/sd)
+- [Fundamentos de Programação](https://github.com/georgerrsv/UFC/tree/main/fup)
+- [Programação Orientada a Objetos](https://github.com/georgerrsv/UFC/tree/main/poo)
+- [Sistemas Distribuídos](https://github.com/georgerrsv/UFC/tree/main/sd)
 
 ## Este repositório contém:
 - Listas de exercícios
