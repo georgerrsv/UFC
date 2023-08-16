@@ -1,4 +1,4 @@
-### Repositório das disciplinas de programação do curso de Redes de Computadores da Universidade Federal do Ceará (UFC). 
+### Repositório dedicado as disciplinas de programação do curso de Redes de Computadores da Universidade Federal do Ceará (UFC). 
 ### Este repositório será atualizado conforme o andamento do curso.
 
 ## Disciplinas
