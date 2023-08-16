@@ -1,8 +1,13 @@
-### Aqui estão algumas atividades desenvolvidas ao longo do curso de Redes de Computadores da Universidade Federal do Ceará (UFC).
+### Repositório das disciplinas de programação do curso de Redes de Computadores da Universidade Federal do Ceará (UFC). Que será atualizado conforme o andamento do curso.
 
-#### Disciplinas de Fundamentos de Programação e Programação Orientada a Objetos.
+## Disciplinas
+- [x] [Fundamentos de Programação](https://github.com/georgerrsv/UFC/tree/main/UFC/fup)
+- [x] [Programação Orientada a Objetos](https://github.com/georgerrsv/UFC/tree/main/UFC/poo)
+- [x] [Sistemas Distribuídos](
 
-#### Linguagens utilizadas: 
-- C/C++.
 
-#### Este repositorio será atualizado conforme o andamento do curso.
+## Este repositório contém:
+- [x] Listas de exercícios
+- [x] Projetos
+- [x] Trabalhos
+- [x] Exemplos de códigos
