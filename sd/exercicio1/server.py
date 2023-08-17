@@ -17,7 +17,7 @@ class Calculator:
             return "Erro: Divisão por zero não é permitida."
 
 def handle_client(client_socket):
-    calculadora = Calculator()
+    calc = Calculator()
     
     while True:
         data = client_socket.recv(1024).decode('utf-8')
@@ -26,18 +26,18 @@ def handle_client(client_socket):
             break
         
         try:
-            operacao, valor1, valor2 = data.split(',')
-            valor1 = float(valor1)
-            valor2 = float(valor2)
+            option, value1, value2 = data.split(',')
+            value1 = float(value1)
+            value2 = float(value2)
 
-            if operacao == 'soma':
-                result = calculadora.sum(valor1, valor2)
-            elif operacao == 'subtracao':
-                result = calculadora.sub(valor1, valor2)
-            elif operacao == 'multiplicacao':
-                result = calculadora.mult(valor1, valor2)
-            elif operacao == 'divisao':
-                result = calculadora.div(valor1, valor2)
+            if option == 'soma':
+                result = calc.sum(value1, value2)
+            elif option == 'subtracao':
+                result = calc.sub(value1, value2)
+            elif option == 'multiplicacao':
+                result = calc.mult(value1, value2)
+            elif option == 'divisao':
+                result = calc.div(value1, value2)
             else:
                 result = "Operação inválida"
         except Exception as e:

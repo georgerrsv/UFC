@@ -10,18 +10,18 @@ def main():
         return
     
     while True:
-        operacao = input("Digite a operação (soma, subtracao, multiplicacao, divisao; ou 'sair' para sair): ")
-        if operacao == 'sair':
+        option = input("Digite a operação (soma, subtracao, multiplicacao, divisao; ou sair para encerrar): ")
+        if option == 'sair':
             break
         
-        valor1 = float(input("Digite o primeiro valor: "))
-        valor2 = float(input("Digite o segundo valor: "))
+        value1 = float(input("Digite o primeiro valor: "))
+        value2 = float(input("Digite o segundo valor: "))
         
-        mensagem = f"{operacao},{valor1},{valor2}"
-        client.send(mensagem.encode('utf-8'))
+        msg = f"{option},{value1},{value2}"
+        client.send(msg.encode('utf-8'))
         
-        resultado = client.recv(1024).decode('utf-8')
-        print("Resultado:", resultado)
+        result = client.recv(1024).decode('utf-8')
+        print("Resultado:", result)
 
     client.close()
 
