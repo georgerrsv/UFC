@@ -6,11 +6,11 @@ def main():
     try:
         client.connect(('127.0.0.1', 12345))
     except ConnectionRefusedError:
-        print("Não foi possível conectar ao servidor. Verifique se o servidor está em execução.")
+        print("Servidor indisponível. Não foi possível estabelecer conexão.")
         return
     
     while True:
-        option = input("Digite a operação (soma, subtracao, multiplicacao, divisao; ou sair para encerrar): ")
+        option = input("Digite a operação: soma (+), subtracao (-), multiplicacao (*), divisao (/) ou sair para encerrar: ")
         if option == 'sair':
             break
         
@@ -21,7 +21,7 @@ def main():
         client.send(msg.encode('utf-8'))
         
         result = client.recv(1024).decode('utf-8')
-        print("Resultado:", result)
+        print(result)
 
     client.close()
 

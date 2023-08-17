@@ -29,7 +29,7 @@ def handle_client(client_socket):
             option, value1, value2 = data.split(',')
             value1 = float(value1)
             value2 = float(value2)
-
+            
             if option == 'soma':
                 result = calc.sum(value1, value2)
             elif option == 'subtracao':
