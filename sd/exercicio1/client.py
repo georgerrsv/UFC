@@ -5,6 +5,8 @@ def main():
     
     try:
         client.connect(('127.0.0.1', 12345))
+        print("Conexão estabelecida com o servidor.")
+        print("\n")
     except ConnectionRefusedError:
         print("Servidor indisponível. Não foi possível estabelecer conexão.")
         return
