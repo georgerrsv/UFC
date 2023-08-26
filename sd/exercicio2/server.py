@@ -11,11 +11,10 @@ def main():
     print('Servidor TCP iniciado. Aguardando conexões...')
 
     calculator = Calculator()
-    client_count = 0
 
     while True:
         client_socket, addr = server.accept()
-        print(f'Conexão de {addr} estabelecida')
+        print(f'Conexão estabelecida com cliente no IP {addr[0]} na porta {addr[1]}')
 
         client_thread = threading.Thread(target=handle_client, args=(client_socket, calculator))
         client_thread.start()

@@ -6,9 +6,9 @@ class clientConnection:
         try:
             self.client_socket.connect(('127.0.0.1', 12345))
         except ConnectionRefusedError:
-            print("Não foi possível estabelecer conexão. Servidor indisponível.")
-            raise
-    
+            print("Não foi possível estabelecer conexão. Servidor indisponível!")
+            exit()
+
     def send_message(self, message):
         self.client_socket.send(message.encode('utf-8'))
         return self.client_socket.recv(1024).decode('utf-8')
