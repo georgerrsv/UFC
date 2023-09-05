@@ -1,3 +1,4 @@
-def soma(self, x, y)
+def sum(x, y):
 	return x + y
-print(soma(2,3))
+
+print(sum(1, 2))
