@@ -13,10 +13,7 @@ def handle_client(client_socket):
             break
         
         try:
-            option, value1, value2 = data.split(',')
-            option == 'conversor'
-            value_decimal = float(value1)
-            value2 = float(value2)
+            value_decimal = data.split(',')[1]
             result = conversor_binario(value_decimal)
         except ValueError:
             result = "Valor inválido."
