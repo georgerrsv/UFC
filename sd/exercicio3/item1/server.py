@@ -18,10 +18,10 @@ class Calculator:
         else:
             return "Divisão por zero não é permitida."
 
-def conversor_binario(decimal_str):
-    decimal_int = int(decimal_str)
-    binary_str = bin(decimal_int)[2:]
-    return binary_str
+def conversor_binario(str_decimal):
+    int_decimal = int(str_decimal)
+    str_binario = bin(int_decimal)[2:]
+    return str_binario
 
 def handle_client(client_socket):
     calc = Calculator()
