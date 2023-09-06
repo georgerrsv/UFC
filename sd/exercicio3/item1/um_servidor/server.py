@@ -15,8 +15,7 @@ class Calculator:
     def div(self, a, b):
         if b != 0:
             return a / b
-        else:
-            return "Divisão por zero não é permitida."
+        return "Divisão por zero não é permitida."
 
 def conversor_binario(str_decimal):
     int_decimal = int(str_decimal)
