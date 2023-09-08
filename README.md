@@ -5,6 +5,7 @@
 - [Fundamentos de Programação](https://github.com/georgerrsv/UFC/tree/main/fup)
 - [Programação Orientada a Objetos](https://github.com/georgerrsv/UFC/tree/main/poo)
 - [Sistemas Distribuídos](https://github.com/georgerrsv/UFC/tree/main/sd)
+- [Programação de Scripts](https://github.com/georgerrsv/UFC/tree/main/scripts)
 
 ## Este repositório contém:
 - Listas de exercícios
