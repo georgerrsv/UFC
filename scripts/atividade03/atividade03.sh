@@ -20,4 +20,4 @@ grep -E 'sshd.*D.*f.*root' auth.log
 
 #Um comando grep que encontre todas as vezes que alguém conseguiu fazer
 #login com sucesso nos dias 11 ou 12 de Outubro
-grep -E -e '^Oct.11.*New' -e '^Oct.12.*New' auth.log""" >> logins.sh
+grep -E -e '^Oct.11.*New' -e '^Oct.12.*New' auth.log" >> logins.sh
