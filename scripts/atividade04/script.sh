@@ -11,4 +11,5 @@ echo 'cat compras.txt | cut -d " " -f2 | tr "\n" "+" | sed "s/+$/\n/" | bc' > so
 
 echo '#!/bin/bash
 export TZ=America/Sao_Paulo
+echo -e "Olá $(whoami), \nHoje é dia $(date +"%d"), do mês $(date +"%m") do ano de $(date +"%Y")."
 echo -e "Olá $(whoami), \nHoje é dia $(date +"%d"), do mês $(date +"%m") do ano de $(date +"%Y")." >> saudacao.log' > saudacao.sh
