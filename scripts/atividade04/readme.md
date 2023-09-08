@@ -1,8 +1,8 @@
 #### How to execute the script
 ```bash
-touch atividade04.sh
-chmod 0700 atividade04.sh
-./atividade04.sh
+touch script.sh
+chmod 0700 script.sh
+./script.sh
 ```
 
 #### Remember to copy the script from script.sh to your_script.sh
