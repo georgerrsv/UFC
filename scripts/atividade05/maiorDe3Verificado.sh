@@ -2,14 +2,16 @@
 
 param='^[+-]?[0-9]+([.][0-9]+)?$'
 
-if [ "$#" -ne 3 ]; then
-    echo "Insira: $0 <parâmetro1> <parâmetro2> <parâmetro3>"
-    exit 1
+if [ "$#" -ne 3 ]; 
+    then
+        echo "Insira: $0 <parâmetro1> <parâmetro2> <parâmetro3>"
+        exit 1
 fi
 
-if ! [[ "$1" =~ $param ]]; then
-    echo "Erro: $1 não é número."
-    exit 1
+if ! [[ "$1" =~ $param ]]; 
+    then
+        echo "Erro: $1 não é número."
+        exit 1
 
 elif ! [[ "$2" =~ $param ]]; 
     then
