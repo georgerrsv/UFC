@@ -1,9 +1,7 @@
 from connection import clientConnection
-from calculator import Calculator
 
 def main():
     connection = clientConnection('127.0.0.1', 12345)
-    calculator = Calculator()
     
     while True:
         operacao = input("Digite a operação: sum (+), sub (-), mult (*), div (/); ou 'sair' para sair): ")

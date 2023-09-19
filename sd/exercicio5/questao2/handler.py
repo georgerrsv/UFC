@@ -1,7 +1,7 @@
 from calculator import Calculator
 
 def handle_client(client_socket):
-    calculator = Calculator()  # Criar uma instância de Calculator aqui
+    calculator = Calculator()
     
     while True:
         data = client_socket.recv(1024).decode('utf-8')
@@ -10,13 +10,13 @@ def handle_client(client_socket):
             break
 
         try:
-            option, valueX, valueY = data.split(',')
-            valueX = float(valueX)
-            valueY = float(valueY)
+            option, valor1, valor2 = data.split(',')
+            valor1 = float(valor1)
+            valor2 = float(valor2)
 
             if hasattr(calculator, option):
                 method = getattr(calculator, option)
-                result = method(valueX, valueY)
+                result = method(valor1, valor2)
             else:
                 result = 'Operação inválida'
         except Exception as e:

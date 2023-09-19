@@ -6,6 +6,9 @@ class Calculator:
             cls._instance = super(Calculator, cls).__new__(cls)
             cls._instance.initialize()
         return cls._instance
+    
+    def initialize(self):
+        pass
 
     def sum(self, x, y):
         return x + y
