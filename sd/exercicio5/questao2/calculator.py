@@ -7,10 +7,6 @@ class Calculator:
             cls._instance.initialize()
         return cls._instance
 
-    def initialize(self):
-        # Inicialize quaisquer recursos necessários aqui
-        pass
-
     def sum(self, x, y):
         return x + y
 
