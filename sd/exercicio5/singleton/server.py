@@ -1,6 +1,5 @@
 import socket
 import threading
-from threading import Lock
 from calculator import Calculator
 
 class CalculatorServer:
