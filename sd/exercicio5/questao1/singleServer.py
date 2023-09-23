@@ -10,13 +10,12 @@ def main():
     
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
-    server_socket.listen(5)
+    server_socket.listen(100)
     
-    print(f"Servidor calculadora TCP aguardando conexões...")
+    print(f"Servidor Singlethread aguardando conexões...")
     
     while True:
         client_socket, addr = server_socket.accept()
-        print(f"Conexão estabelecida com IP: {addr[0]} e porta :{addr[1]}")
         serverHandler.handle_client(client_socket, calculator)
 
 if __name__ == '__main__':

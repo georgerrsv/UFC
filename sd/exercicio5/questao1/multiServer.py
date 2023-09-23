@@ -11,15 +11,20 @@ def main():
     
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
-    server_socket.listen(5)
+    server_socket.listen(100)
     
-    print(f"Servidor calculadora TCP multithread aguardando conexões...")
+    print(f"Servidor multithread aguardando conexões...")
+    
+    threads = []
     
     while True:
         client_socket, addr = server_socket.accept()
-        print(f"Conexão estabelecida com IP: {addr[0]} na porta :{addr[1]}")
         client_thread = threading.Thread(target=serverHandler.handle_client, args=(client_socket, calculator))
+        threads.append(client_thread)
         client_thread.start()
+    
+        for thread in threads:
+            thread.join()
 
 if __name__ == '__main__':
     main()
