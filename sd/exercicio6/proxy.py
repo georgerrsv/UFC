@@ -7,3 +7,6 @@ class Proxy:
         self.client.sendRequest(request)
         response = self.client.getResponse()
         return response
+    
+    def close(self):
+        self.client.close()
