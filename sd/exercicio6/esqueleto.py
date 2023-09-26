@@ -1,5 +1,3 @@
-# esqueleto.py
-
 class Esqueleto:
     def __init__(self, calculadora):
         self.calculadora = calculadora

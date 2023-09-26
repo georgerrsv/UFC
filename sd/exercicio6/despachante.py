@@ -1,5 +1,3 @@
-# despachante.py
-
 class Despachante:
     def __init__(self, esqueleto):
         self.esqueleto = esqueleto
