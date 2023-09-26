@@ -4,7 +4,7 @@ from despachante import Despachante
 from calculator import Calculadora
 import pickle
 
-def main_server():
+def main():
     host = 'localhost'
     port = 12345
     server = TCPServer(host, port)
@@ -31,4 +31,4 @@ def main_server():
             client_socket.close()
 
 if __name__ == "__main__":
-    main_server()
+    main()
