@@ -6,7 +6,7 @@ class TCPServer:
         self.server_socket.bind((host, port))
         self.server_socket.listen(1)
 
-    def accept_connection(self):
+    def aceitarConexao(self):
         return self.server_socket.accept()
 
     def close(self):

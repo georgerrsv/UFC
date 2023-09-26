@@ -11,7 +11,7 @@ def main_server():
     print(f"Servidor TCP iniciado. Aguardando conexões...")
 
     while True:
-        client_socket, client_addr = server.accept_connection()
+        client_socket, client_addr = server.aceitarConexao()
         print(f"Conexão estabelecida com cliente no IP: {client_addr[0]} e porta: {client_addr[1]}")
 
         calculadora = Calculadora()
@@ -23,7 +23,7 @@ def main_server():
                 request = pickle.loads(client_socket.recv(1024))
                 if not request:
                     break
-                response = despachante.dispatch_request(request)
+                response = despachante.request(request)
                 client_socket.send(pickle.dumps(response))
         except Exception as e:
             print("Conexão encerrada pelo cliente. " + str(e))

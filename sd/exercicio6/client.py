@@ -1,4 +1,3 @@
-# cliente.py
 from tcp_client import TCPClient
 from proxy import Proxy
 
@@ -27,13 +26,13 @@ def main_client():
             b = float(input("Digite o segundo número: "))
 
             if choice == '1':
-                result = proxy.invoke_remote('soma', a, b)
+                result = proxy.invoke('soma', a, b)
             elif choice == '2':
-                result = proxy.invoke_remote('sub', a, b)
+                result = proxy.invoke('sub', a, b)
             elif choice == '3':
-                result = proxy.invoke_remote('mult', a, b)
+                result = proxy.invoke('mult', a, b)
             elif choice == '4':
-                result = proxy.invoke_remote('div', a, b)
+                result = proxy.invoke('div', a, b)
             else:
                 print("Escolha inválida")
                 continue
