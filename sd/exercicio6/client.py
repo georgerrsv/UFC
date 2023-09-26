@@ -6,7 +6,6 @@ if __name__ == "__main__":
     host = 'localhost'
     port = 12345
 
-    from tcp_client import TCPClient
     client = TCPClient(host, port)
     proxy = Proxy(client)
 
