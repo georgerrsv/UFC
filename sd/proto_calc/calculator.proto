@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package calculator;
+
+message CalculationRequest {
+    int32 op1 = 1;
+    int32 op2 = 2;
+    string choice = 3;
+}
+
+message CalculationResponse {
+    string result = 1;
+}
