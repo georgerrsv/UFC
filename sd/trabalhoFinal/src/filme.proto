@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+message Filme {
+    string id = 1;
+    string titulo = 2;
+    string diretor = 3;
+    int32 ano = 4;
+    int32 duracao = 5;
+    string genero = 6;
+    int32 classificacao = 7;
+    string descricao = 8;
+}
+
+message AddFilmRequest {
+    string id = 1;
+    string titulo = 2;
+    string diretor = 3;
+    int32 ano = 4;
+    int32 duracao = 5;
+    string genero = 6;
+    int32 classificacao = 7;
+    string descricao = 8;
+}
+
+message RemoveFilmRequest {
+    string id = 1;
+}
+
+message ListFilmRequest {
+    string id = 1;
+}
+
+message ListCatalogRequest {
+    string id = 1;
+}
+
+message Response {
+    string error_message = 1;
+    Filme filme = 2;
+    repeated Filme catalogo = 3;
+}
+
+message Request {
+    string method = 1;
+    AddFilmRequest add_film_request = 2;
+    RemoveFilmRequest remove_film_request = 3;
+    ListFilmRequest list_film_request = 4;
+    ListCatalogRequest list_catalog_request = 5;
+}
