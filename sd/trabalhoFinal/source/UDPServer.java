@@ -14,7 +14,6 @@ public class UDPServer {
     private Connection connection;
 
     public UDPServer() {
-        // Estabelecer a conexão com o banco de dados no construtor
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             System.out.println("Conexão com o banco de dados estabelecida.");
@@ -24,8 +23,6 @@ public class UDPServer {
     }
 
     public String getRequest(String request) {
-        // Implemente a lógica de processamento da solicitação
-        // e a interação com o banco de dados, se necessário
 
         Despachante despachante = new Despachante();
         String response = despachante.invoke(request, connection);
