@@ -235,7 +235,7 @@ class UserInterface:
         except json.JSONDecodeError:
             self.show_message("Erro: Servidor indisponível!", color="red")
 
-    def show_message(self, message, color, timeout=1500):
+    def show_message(self, message, color, timeout=10000):
         if self.message_label:
             self.message_label.destroy()
         self.message_label = tk.Label(self.current_frame, text=message, fg=color)
