@@ -2,6 +2,7 @@ import tkinter as tk
 from udpClient import UDPClient
 import json
 from tkinter import scrolledtext
+import re
 
 class UserInterface:
     def __init__(self, root, udp_client):
@@ -11,6 +12,8 @@ class UserInterface:
 
         self.current_frame = None  # Para alternar entre as diferentes operações
         self.create_main_frame()
+        self.message_label = None
+
 
     def create_back_button(self):
         if self.current_frame:
@@ -102,6 +105,10 @@ class UserInterface:
         self.udp_client.sendRequest(request)
         response = self.udp_client.getResponse()
 
+        if not title or not director or not year or not duration or not genre or not rating or not description:
+            self.show_message("Erro: Preencha todos os campos!", color="red")
+            return
+
         try:
             movie = json.loads(response)
             if "error" in movie:
@@ -144,6 +151,11 @@ class UserInterface:
 
     def submit_remove_movie(self):
         movie_id = self.id_entry.get()
+    
+        if not movie_id:
+            self.show_message("Erro: ID do filme não fornecido", color="red")
+            return
+
         request = f"removerFilme {movie_id}"
         self.udp_client.sendRequest(request)
         response = self.udp_client.getResponse()
@@ -154,7 +166,7 @@ class UserInterface:
                 self.show_message(movie["error"], color="red")
             else:
                 self.show_message("Filme removido com sucesso!", color="green")
-            self.id_entry_remove.delete(0, tk.END)  # Limpar o campo após a remoção
+            self.id_entry.delete(0, tk.END)  # Limpar o campo após a remoção
         except json.JSONDecodeError:
             self.show_message("Erro: Servidor indisponível!", color="red")
 
@@ -180,6 +192,10 @@ class UserInterface:
         request = f"exibirDetalhe {movie_id}"
         self.udp_client.sendRequest(request)
         response = self.udp_client.getResponse()
+
+        if not movie_id:
+            self.show_message("Erro: Informe um ID!", color="red")
+            return
 
         try:
             movie = json.loads(response)
@@ -211,7 +227,7 @@ class UserInterface:
             if "error" in catalog:
                 self.show_message(catalog["error"], color="red")
             else:
-                catalog_text = scrolledtext.ScrolledText(show_catalog_frame, wrap=tk.WORD, width=40, height=10)
+                catalog_text = scrolledtext.ScrolledText(show_catalog_frame, wrap=tk.WORD, width=40, height=20)
                 catalog_text.pack()
                 for movie in catalog:
                     details = f"Título: {movie['titulo']}\nDiretor: {movie['diretor']}\nAno: {movie['ano']}\nDuração: {movie['duracao']}\nGênero: {movie['genero']}\nClassificação: {movie['classificacao']}\nDescrição: {movie['descricao']}\n\n"
@@ -219,6 +235,19 @@ class UserInterface:
                 catalog_text.configure(state='disabled')  # Impede a edição do texto
         except json.JSONDecodeError:
             self.show_message("Erro: Servidor indisponível!", color="red")
+
+    def show_message(self, message, color, timeout=1500):
+        if self.message_label:
+            self.message_label.destroy()
+        self.message_label = tk.Label(self.current_frame, text=message, fg=color)
+        self.message_label.pack()
+
+        self.root.after(timeout, self.clear_message)
+
+    def clear_message(self):
+        if self.message_label:
+            self.message_label.destroy()
+            self.message_label = None
 
     def run(self):
         self.root.mainloop()

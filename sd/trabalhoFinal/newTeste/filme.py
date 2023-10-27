@@ -1,8 +1,7 @@
 import json
 
 class Filme:
-    def __init__(self, id, titulo, diretor, ano, duracao, genero, classificacao, descricao):
-        self.id = id
+    def __init__(self, titulo, diretor, ano, duracao, genero, classificacao, descricao):
         self.titulo = titulo
         self.diretor = diretor
         self.ano = ano
