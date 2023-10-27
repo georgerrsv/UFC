@@ -9,7 +9,7 @@ class UserInterface:
         self.udp_client = udp_client
         root.title("Catálogo de Filmes")
 
-        self.current_frame = None  # Para alternar entre as diferentes operações
+        self.current_frame = None
         self.create_main_frame()
         self.message_label = None
 
@@ -21,7 +21,7 @@ class UserInterface:
 
     def create_main_frame(self):
         if self.current_frame:
-            self.current_frame.destroy()  # Destrua o quadro atual
+            self.current_frame.destroy()
 
         self.current_frame = tk.Frame(self.root)
         self.current_frame.pack()
@@ -46,7 +46,7 @@ class UserInterface:
 
     def create_add_movie_frame(self):
         if self.current_frame:
-            self.current_frame.destroy()  # Destrua o quadro atual
+            self.current_frame.destroy()
         add_movie_frame = tk.Frame(self.root)
         add_movie_frame.pack()
         self.current_frame = add_movie_frame
@@ -165,7 +165,7 @@ class UserInterface:
                 self.show_message(movie["error"], color="red")
             else:
                 self.show_message("Filme removido com sucesso!", color="green")
-            self.id_entry.delete(0, tk.END)  # Limpar o campo após a remoção
+            self.id_entry.delete(0, tk.END)
         except json.JSONDecodeError:
             self.show_message("Erro: Servidor indisponível!", color="red")
 
@@ -231,7 +231,7 @@ class UserInterface:
                 for movie in catalog:
                     details = f"Título: {movie['titulo']}\nDiretor: {movie['diretor']}\nAno: {movie['ano']}\nDuração: {movie['duracao']}\nGênero: {movie['genero']}\nClassificação: {movie['classificacao']}\nDescrição: {movie['descricao']}\n\n"
                     catalog_text.insert(tk.END, details)
-                catalog_text.configure(state='disabled')  # Impede a edição do texto
+                catalog_text.configure(state='disabled')
         except json.JSONDecodeError:
             self.show_message("Erro: Servidor indisponível!", color="red")
 

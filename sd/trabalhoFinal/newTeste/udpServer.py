@@ -1,8 +1,6 @@
 import socket
 from dbConnection import DBConnection
 from despachante import Despachante
-import json
-from filme import Filme
 
 class UDPServer:
     def __init__(self, host, port):
