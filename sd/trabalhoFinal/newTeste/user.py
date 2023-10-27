@@ -2,7 +2,6 @@ import tkinter as tk
 from udpClient import UDPClient
 import json
 from tkinter import scrolledtext
-import re
 
 class UserInterface:
     def __init__(self, root, udp_client):
