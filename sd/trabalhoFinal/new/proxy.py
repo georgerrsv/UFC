@@ -24,7 +24,14 @@ class Proxy:
         h_json = cabecalho.to_json()
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
-        header = Cabecalho.from_json(data)
+        if data is None:
+            return
+        try:
+            header = Cabecalho.from_json(data)
+        except Exception as e:
+            print("Erro ao processar a resposta do servidor:", str(e))
+            return
+
         print(header.arguments)
 
     def removerFilme(self):
@@ -35,7 +42,14 @@ class Proxy:
         h_json = cabecalho.to_json()
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
-        header = Cabecalho.from_json(data)
+        if data is None:
+            return
+        try:
+            header = Cabecalho.from_json(data)
+        except Exception as e:
+            print("Erro ao processar a resposta do servidor:", str(e))
+            return
+        
         print(header.arguments)
 
     def exibirDetalhe(self):
@@ -46,20 +60,34 @@ class Proxy:
         h_json = cabecalho.to_json()
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
-        header = Cabecalho.from_json(data)
+        if data is None:
+            return
+        try:
+            header = Cabecalho.from_json(data)
+        except Exception as e:
+            print("Erro ao processar a resposta do servidor:", str(e))
+            return
         detalhe=Filme.from_json(header.arguments)
         print(f"\nTitulo: {detalhe.titulo}\nDiretor: {detalhe.diretor}\nAno: {detalhe.ano}\nDuração: {detalhe.duracao}\nGenero: {detalhe.genero}\nClassificacao: {detalhe.classificacao}\nDescrição: {detalhe.descricao}\n")
         
 
     def mostrarCatalogo(self):
-        print("[Exibindo catálogo]")
+        print("[Exibir catálogo]")
         new_request_id = Cabecalho.increment_request_id()
         cabecalho = Cabecalho(0, "mostrarCatalogo", 4, "", new_request_id)
         h_json = cabecalho.to_json()
 
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
-        header = Cabecalho.from_json(data)
+        
+        if data is None:
+            return
+        
+        try:
+            header = Cabecalho.from_json(data)
+        except Exception as e:
+            print("Erro ao processar a resposta do servidor:", str(e))
+            return
         
         if "Catalogo vazio!" in header.arguments:
             print("Catálogo vazio!")
