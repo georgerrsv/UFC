@@ -19,7 +19,8 @@ class Proxy:
 
         filme = Filme(titulo, diretor, ano, duracao, genero, classificacao, descricao)
         filme_json = filme.to_json()
-        cabecalho = Cabecalho(0, "adicionarFilme", 1, {"filme": filme_json})
+        new_request_id = Cabecalho.increment_request_id()
+        cabecalho = Cabecalho(0, "adicionarFilme", 1, {"filme": filme_json}, new_request_id)
         h_json = cabecalho.to_json()
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
@@ -29,7 +30,8 @@ class Proxy:
     def removerFilme(self):
         print("[Remover]")
         id = int(input("ID: "))
-        cabecalho = Cabecalho(0, "removerFilme", 2, {"id": id})
+        new_request_id = Cabecalho.increment_request_id()
+        cabecalho = Cabecalho(0, "removerFilme", 2, {"id": id}, new_request_id)
         h_json = cabecalho.to_json()
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
@@ -39,7 +41,8 @@ class Proxy:
     def exibirDetalhe(self):
         print("[Exibir detalhe]")
         id = int(input("ID: "))
-        cabecalho = Cabecalho(0, "exibirDetalhe", 3, {"id": id})
+        new_request_id = Cabecalho.increment_request_id()
+        cabecalho = Cabecalho(0, "exibirDetalhe", 3, {"id": id}, new_request_id)
         h_json = cabecalho.to_json()
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
@@ -48,7 +51,8 @@ class Proxy:
 
     def mostrarCatalogo(self):
         print("[Exibir catálogo]")
-        cabecalho = Cabecalho(0, "mostrarCatalogo", 4, "")
+        new_request_id = Cabecalho.increment_request_id()
+        cabecalho = Cabecalho(0, "mostrarCatalogo", 4, "", new_request_id)
         h_json = cabecalho.to_json()
 
         self.client.sendRequest(h_json)
