@@ -1,5 +1,5 @@
 from socket import *
-from database import *
+from database import Database
 from despachante import Despachante
 
 class UDPServer:
@@ -9,30 +9,23 @@ class UDPServer:
         self.server = socket(AF_INET, SOCK_DGRAM)
         self.server.bind((self.host, self.port))
         self.db = Database()
-        self.despachante = Despachante()
 
     def getRequest(self):
+        despachante = Despachante()
         data, addr = self.server.recvfrom(1024)
         data = data.decode('utf-8')
-        return data, addr
+        response = despachante.invoke(data)
+        return response, addr
 
     def sendResponse(self, response, addr):
         self.server.sendto(response.encode('utf-8'), addr)
 
-    def run(self):
-        print('Servidor UDP iniciado...')
-        while True:
-            data, addr = self.getRequest()
-            print('Recebido de', addr, ':', data)
-            response = self.processRequest(data)
-            self.sendResponse(response, addr)
-            print('Enviado para', addr, ':', response)
-            
-
-    def processRequest(self, request):
-        response = self.despachante.invoke(request)
-        return response
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     server = UDPServer('localhost', 8080)
-    server.run()
+    print("Servidor UDP iniciado. Aguardando conexões...")
+    while True:
+        try:
+            response, addr = server.getRequest()
+            server.sendResponse(response, addr)
+        except Exception as e:
+            print(f"Erro no servidor: {e}")

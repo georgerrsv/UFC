@@ -36,12 +36,9 @@ class Database:
             return "Filme nao encontrado!"
         
     def mostrarCatalogo(self):
-        self.cursor.execute("SELECT * FROM filme")
+        self.cursor.execute("SELECT id, titulo FROM filme")
         filmes = self.cursor.fetchall()
         if filmes:
-            catalogo = []
-            for filme in filmes:
-                catalogo.append(Filme(filme[1], filme[2], filme[3], filme[4], filme[5], filme[6], filme[7]).to_json())
-            return catalogo
+            return filmes
         else:
             return "Catalogo vazio!"

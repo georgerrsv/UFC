@@ -39,7 +39,7 @@ class Proxy:
         print(header.arguments)
 
     def exibirDetalhe(self):
-        print("[Exibir detalhe]")
+        print("[Exibindo detalhes]")
         id = int(input("ID: "))
         new_request_id = Cabecalho.increment_request_id()
         cabecalho = Cabecalho(0, "exibirDetalhe", 3, {"id": id}, new_request_id)
@@ -47,10 +47,12 @@ class Proxy:
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
         header = Cabecalho.from_json(data)
-        print(header.arguments)
+        detalhe=Filme.from_json(header.arguments)
+        print(f"\nTitulo: {detalhe.titulo}\nDiretor: {detalhe.diretor}\nAno: {detalhe.ano}\nDuração: {detalhe.duracao}\nGenero: {detalhe.genero}\nClassificacao: {detalhe.classificacao}\nDescrição: {detalhe.descricao}\n")
+        
 
     def mostrarCatalogo(self):
-        print("[Exibir catálogo]")
+        print("[Exibindo catálogo]")
         new_request_id = Cabecalho.increment_request_id()
         cabecalho = Cabecalho(0, "mostrarCatalogo", 4, "", new_request_id)
         h_json = cabecalho.to_json()
@@ -58,9 +60,11 @@ class Proxy:
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
         header = Cabecalho.from_json(data)
-
+        
         if "Catalogo vazio!" in header.arguments:
             print("Catálogo vazio!")
         else:
             for filme in header.arguments:
-                print(filme)
+                print("------------------")
+                print(f"ID: {filme[0]}\nTitulo: {filme[1]}")
+                print("------------------\n")

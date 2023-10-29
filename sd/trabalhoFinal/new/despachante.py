@@ -4,9 +4,10 @@ from esqueleto import Esqueleto
 
 class Despachante:
     def __init__(self):
-        self.esqueleto = Esqueleto()
+        self
 
     def invoke(self, request):
+        esqueleto = Esqueleto()
         request_data = json.loads(request)
         cabecalho = Cabecalho(**request_data)
 
@@ -14,15 +15,15 @@ class Despachante:
 
         if cabecalho.methodId == 1:
             filme = cabecalho.arguments["filme"]
-            result = self.esqueleto.adicionarFilme(filme)
+            result = esqueleto.adicionarFilme(filme)
         elif cabecalho.methodId == 2:
             id = cabecalho.arguments["id"]
-            result = self.esqueleto.removerFilme(id)
+            result = esqueleto.removerFilme(id)
         elif cabecalho.methodId == 3:
             id = cabecalho.arguments["id"]
-            result = self.esqueleto.exibirDetalhe(id)
+            result = esqueleto.exibirDetalhe(id)
         elif cabecalho.methodId == 4:
-            result = self.esqueleto.mostrarCatalogo()
+            result = esqueleto.mostrarCatalogo()
 
         response_data = {
             "messageType": 1,
