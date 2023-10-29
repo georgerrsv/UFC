@@ -28,7 +28,7 @@ class Cabecalho:
             header_data["objectreference"],
             header_data["methodId"],
             header_data["arguments"],
-            header_data.get("requestId", 0)  # Use 0 se 'requestId' não estiver presente no JSON
+            header_data.get("requestId", 0)
         )
 
     @classmethod
