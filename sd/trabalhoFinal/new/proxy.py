@@ -62,13 +62,20 @@ class Proxy:
         data = self.client.getResponse()
         if data is None:
             return
+
         try:
             header = Cabecalho.from_json(data)
+            if "Filme nao encontrado!" in header.arguments:
+                print("Filme nao encontrado!")
+            else:
+                filme = Filme.from_json(header.arguments)
+                print("------------------")
+                print(f"Titulo: {filme.titulo}\nDiretor: {filme.diretor}\nAno: {filme.ano}\nDuração: {filme.duracao}\nGênero: {filme.genero}\nClassificação: {filme.classificacao}\nDescrição: {filme.descricao}")
+                print("------------------\n")
         except Exception as e:
             print("Erro ao processar a resposta do servidor:", str(e))
             return
-        detalhe=Filme.from_json(header.arguments)
-        print(f"\nTitulo: {detalhe.titulo}\nDiretor: {detalhe.diretor}\nAno: {detalhe.ano}\nDuração: {detalhe.duracao}\nGenero: {detalhe.genero}\nClassificacao: {detalhe.classificacao}\nDescrição: {detalhe.descricao}\n")
+
         
 
     def mostrarCatalogo(self):
