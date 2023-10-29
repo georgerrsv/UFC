@@ -13,7 +13,16 @@ class Filme:
         
 
     def to_json(self):
-        return dumps(self.__dict__)
+        filme_data = {
+            "titulo": self.titulo,
+            "diretor": self.diretor,
+            "ano": self.ano,
+            "duracao": self.duracao,
+            "genero": self.genero,
+            "classificacao": self.classificacao,
+            "descricao": self.descricao
+        }
+        return dumps(filme_data)
     
     @classmethod
     def from_json(cls, json_str):

@@ -1,19 +1,22 @@
 from json import *
 
 class Cabecalho:
-    _requestId=0
-    def __init__(self, messageType, requestId, objectreference, methodId, arguments):
-        self.messageType=messageType
-        self.requestId=Cabecalho._requestId 
-        self.objectreference=objectreference
-        self.methodId=methodId
-        self.arguments=arguments
-        Cabecalho._requestId+=1
-        
+    def __init__(self, messageType, objectreference, methodId, arguments):
+        self.messageType = messageType
+        self.objectreference = objectreference
+        self.methodId = methodId
+        self.arguments = arguments
+
     def to_json(self):
-        return dumps(self.__dict)
+        header_data = {
+            "messageType": self.messageType,
+            "objectreference": self.objectreference,
+            "methodId": self.methodId,
+            "arguments": self.arguments
+        }
+        return dumps(header_data)
 
     @classmethod
     def from_json(cls, json_str):
-        header_data=loads(json_str)
+        header_data = loads(json_str)
         return cls(**header_data)

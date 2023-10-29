@@ -35,7 +35,7 @@ class Database:
         if filme:
             return Filme(filme[1], filme[2], filme[3], filme[4], filme[5], filme[6], filme[7]).to_json()
         else:
-            return "Filme não encontrado!"
+            return "Filme nao encontrado!"
         
     def mostrarCatalogo(self):
         self.cursor.execute("SELECT * FROM filme")
@@ -46,4 +46,4 @@ class Database:
                 catalogo.append(Filme(filme[1], filme[2], filme[3], filme[4], filme[5], filme[6], filme[7]).to_json())
             return catalogo
         else:
-            return "Catálogo vazio!"
+            return "Catalogo vazio!"

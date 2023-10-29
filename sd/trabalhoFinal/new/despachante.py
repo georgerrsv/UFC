@@ -25,7 +25,11 @@ class Despachante:
             result = self.esqueleto.mostrarCatalogo()
 
         response_data = {
-            "result": result
+            "messageType": 1,
+            "objectreference": "filme",
+            "methodId": cabecalho.methodId,
+            "arguments": result
         }
+        
         response = json.dumps(response_data)
         return response
