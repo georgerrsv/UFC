@@ -26,5 +26,4 @@ class Filme:
     
     @classmethod
     def from_json(cls, json_str):
-        film_data=loads(json_str)
-        return cls(**film_data)
+        return cls(**loads(json_str))

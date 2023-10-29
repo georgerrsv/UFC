@@ -48,16 +48,15 @@ class Proxy:
 
     def mostrarCatalogo(self):
         print("[Exibir catálogo]")
-        header = Cabecalho(0, "mostrarCatalogo", 4, "")
-        h_json = header.to_json()
+        cabecalho = Cabecalho(0, "mostrarCatalogo", 4, "")
+        h_json = cabecalho.to_json()
 
         self.client.sendRequest(h_json)
         data = self.client.getResponse()
-        if data:
-            header = Cabecalho.from_json(data)
-            catalogo = header.arguments
-            for filme_data in catalogo:
-                filme = Filme.from_json(filme_data)
-                print(filme.to_json())
+        header = Cabecalho.from_json(data)
+
+        if "Catalogo vazio!" in header.arguments:
+            print("Catálogo vazio!")
         else:
-            print("Não foi possível obter uma resposta do servidor.")
+            for filme in header.arguments:
+                print(filme)

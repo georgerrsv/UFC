@@ -12,9 +12,7 @@ class Database:
         self.cursor = self.connection.cursor()
 
     def adicionarFilme(self, filme):
-        filme = Filme.from_json(filme)
-        self.cursor.execute("INSERT INTO filme (titulo, diretor, ano, duracao, genero, classificacao, descricao) VALUES (%s, %s, %s, %s, %s, %s, %s)", 
-                            (filme.titulo, filme.diretor, filme.ano, filme.duracao, filme.genero, filme.classificacao, filme.descricao))
+        self.cursor.execute("INSERT INTO filme (titulo, diretor, ano, duracao, genero, classificacao, descricao) VALUES (%s, %s, %s, %s, %s, %s, %s)", (filme.titulo, filme.diretor, filme.ano, filme.duracao, filme.genero, filme.classificacao, filme.descricao))
         self.connection.commit()
         if self.cursor.rowcount == 1:
             return "Filme cadastrado com sucesso!"

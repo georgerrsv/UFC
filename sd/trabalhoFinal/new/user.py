@@ -24,3 +24,6 @@ while True:
         print("Encerrando...")
         time.sleep(1)
         break
+    else:
+        print("Operação inválida!")
+        continue
