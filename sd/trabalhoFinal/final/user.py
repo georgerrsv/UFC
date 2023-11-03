@@ -18,8 +18,8 @@ while True:
         print("[Cadastrar]")
         titulo = input("Titulo: ")
         diretor = input("Diretor: ")
-        ano = int(input("Ano: "))
-        duracao = float(input("Duração: "))
+        ano = input("Ano: ")
+        duracao = input("Duração: ")
         genero = input("Gênero: ")
         classificacao = input("Classificação: ")
         descricao = input("Descrição: ")
@@ -28,12 +28,12 @@ while True:
 
     elif operation == 2:
         print("[Remover]")
-        id = str(input("ID: "))
+        id = input("ID: ")
         proxy.removerFilme(id)
 
     elif operation == 3:
         print("[Exibindo detalhes]")
-        id = str(input("ID: "))
+        id = input("ID: ")
         proxy.exibirDetalhe(id)
 
     elif operation == 4:
