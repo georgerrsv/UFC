@@ -1,31 +1,23 @@
-from json import *
+import json
 from database import Database
 from filme import Filme
 
 class Esqueleto:
     def __init__(self):
         self.db = Database()
-        self.movies = []
 
-    def adicionar_filme(self, request_data):
-        try:
-            filme_json = request_data.get("arguments")
-            filme = Filme.from_json(filme_json)
-            result = self.db.adicionarFilme(filme)
-            return {"result": result}
-        except JSONDecodeError as e:
-            return {"result": f"Erro ao desserializar o filme JSON: {str(e)}"}
+    def adicionar_filme(self, arguments_json):
+        arguments = json.loads(arguments_json)
+        filme = Filme(**arguments)
+        return self.db.adicionarFilme(filme)
 
-    def remover_filme(self, request_data):
-        id = request_data.get("arguments")
-        result = self.db.removerFilme(id)
-        return {"result": result}
+    def remover_filme(self, arguments_json):
+        arguments = json.loads(arguments_json)
+        return self.db.removerFilme(arguments)
 
-    def exibir_detalhe(self, request_data):
-        id = request_data.get("arguments")
-        result = self.db.exibirDetalhe(id)
-        return {"result": result}
+    def exibir_detalhe(self, arguments_json):
+        arguments = json.loads(arguments_json)
+        return self.db.exibirDetalhe(arguments)
 
     def mostrar_catalogo(self):
-        result = self.db.mostrarCatalogo()
-        return {"result": result}
+        return self.db.mostrarCatalogo()

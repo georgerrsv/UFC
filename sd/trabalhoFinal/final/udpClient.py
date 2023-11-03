@@ -21,4 +21,3 @@ class UDPClient:
                 self.count += 1
             else:
                 print("Servidor indisponível. Tente novamente mais tarde.")
-                return None

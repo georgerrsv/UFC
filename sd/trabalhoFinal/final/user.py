@@ -28,12 +28,12 @@ while True:
 
     elif operation == 2:
         print("[Remover]")
-        id = int(input("ID: "))
+        id = str(input("ID: "))
         proxy.removerFilme(id)
 
     elif operation == 3:
         print("[Exibindo detalhes]")
-        id = int(input("ID: "))
+        id = str(input("ID: "))
         proxy.exibirDetalhe(id)
 
     elif operation == 4:
@@ -53,4 +53,3 @@ while True:
     else:
         print("Operação inválida!")
         continue
-
