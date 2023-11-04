@@ -6,7 +6,7 @@ class Database:
         self.connection = psycopg2.connect(
             host="localhost",
             database="filme",
-            user="admin",
+            user="postgres",
             password="admin"
         )
         self.cursor = self.connection.cursor()
