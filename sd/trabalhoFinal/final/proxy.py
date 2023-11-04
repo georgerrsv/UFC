@@ -1,5 +1,5 @@
 from udpClient import UDPClient
-from json import *
+import json
 from filme import Filme
 from cabecalho import Cabecalho
 
@@ -8,7 +8,6 @@ class Proxy:
         self.client = UDPClient('localhost', 8080)
 
     def adicionarFilme(self, filme):
-
         filme_json = filme.to_json()
         data = self.doOperation("filme", 1, filme_json)
         if data is None:
@@ -22,7 +21,6 @@ class Proxy:
         print(header.arguments)
 
     def removerFilme(self, id):
-        
         data = self.doOperation("filme", 2, id)
         if data is None:
             return
@@ -60,17 +58,16 @@ class Proxy:
         
         try:
             header = Cabecalho.from_json(data)
+            catalogo = json.loads(header.arguments)
+            for filme in catalogo:
+                print("------------------")
+                print(f"ID: {filme['id']}\nTitulo: {filme['titulo']}")
+                print("------------------\n")
         except Exception as e:
             print("Erro ao processar a resposta do servidor:", str(e))
             return
-        
-        if "Catalogo vazio!" in header.arguments:
-            print("Catálogo vazio!")
-        else:
-            for filme in header.arguments:
-                print("------------------")
-                print(f"ID: {filme[0]}\nTitulo: {filme[1]}")
-                print("------------------\n")
+            
+
 
     def doOperation(self, objectReference, methodId, arguments):
         new_request_id = Cabecalho.increment_request_id()

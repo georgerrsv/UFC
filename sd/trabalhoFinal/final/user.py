@@ -1,7 +1,7 @@
-from proxy import *
-from filme import *
-from os import system
+from proxy import Proxy
+from filme import Filme
 import time
+from os import system
 
 proxy = Proxy()
 
@@ -11,7 +11,7 @@ print("-----------------------------------")
 print("Operações:\n1-Cadastrar\n2-Remover\n3-Listar Detalhes\n4-Exibir catálogo\n5-Limpar tela\n6-Sair")
 print("-----------------------------------")
 while True:
-    
+
     operation = int(input("Insira uma operação: "))
 
     if operation == 1:
@@ -40,7 +40,7 @@ while True:
         print("[Exibir catálogo]")
         proxy.mostrarCatalogo()
     elif operation == 5:
-        system('clear')
+        system("clear")
         print("-----------------------------------")
         print("Gerenciador de catálogo de filmes")
         print("-----------------------------------")
