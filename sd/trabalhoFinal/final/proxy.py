@@ -43,7 +43,7 @@ class Proxy:
                 print("Filme nao encontrado!")
             else:
                 filme = Filme.from_json(header.arguments)
-                print("------------------")
+                print("\n------------------")
                 print(f"Titulo: {filme.titulo}\nDiretor: {filme.diretor}\nAno: {filme.ano}\nDuração: {filme.duracao}\nGênero: {filme.genero}\nClassificação: {filme.classificacao}\nDescrição: {filme.descricao}")
                 print("------------------\n")
         except Exception as e:
