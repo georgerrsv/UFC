@@ -10,6 +10,9 @@ class UDPClient:
 
     def sendRequest(self, obj):
         self.client.sendto(obj.encode('utf-8'), (self.host, self.port))
+    
+    def close(self):
+        self.client.close()
 
     def getResponse(self):
         try:
@@ -17,7 +20,9 @@ class UDPClient:
             return data.decode('utf-8')
         except timeout:
             if self.count < 3:
-                print("Tempo de resposta excedido! Tente novamente.")
+                print("\nTempo de resposta excedido! Tente novamente.\n")
                 self.count += 1
             else:
-                print("Servidor indisponível. Tente novamente mais tarde.")
+                print("\nServidor indisponível. Tente novamente mais tarde.\n")
+                self.close()
+                exit(1)
