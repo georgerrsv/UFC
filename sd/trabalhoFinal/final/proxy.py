@@ -55,12 +55,16 @@ class Proxy:
         
         if data is None:
             return
+
+        if "Catalogo vazio!" in data:
+            print("\nCatalogo vazio!\n")
+            return
         
         try:
             header = Cabecalho.from_json(data)
             catalogo = json.loads(header.arguments)
             for filme in catalogo:
-                print("------------------")
+                print("\n------------------")
                 print(f"ID: {filme['id']}\nTitulo: {filme['titulo']}")
                 print("------------------\n")
         except Exception as e:
