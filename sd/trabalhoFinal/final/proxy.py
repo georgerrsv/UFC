@@ -36,16 +36,19 @@ class Proxy:
         data = self.doOperation("filme", 3, id)
         if data is None:
             return
+        
+        if "Filme nao encontrado!" in data:
+            print("\nFilme nao encontrado!\n")
+            return
 
         try:
             header = Cabecalho.from_json(data)
-            if "Filme nao encontrado!" in header.arguments:
-                print("Filme nao encontrado!")
-            else:
-                filme = Filme.from_json(header.arguments)
-                print("\n------------------")
-                print(f"Titulo: {filme.titulo}\nDiretor: {filme.diretor}\nAno: {filme.ano}\nDuração: {filme.duracao}\nGênero: {filme.genero}\nClassificação: {filme.classificacao}\nDescrição: {filme.descricao}")
-                print("------------------\n")
+            filme = Filme.from_json(header.arguments)
+
+            print("\n------------------")
+            print(f"Titulo: {filme.titulo}\nDiretor: {filme.diretor}\nAno: {filme.ano}\nDuração: {filme.duracao}\nGênero: {filme.genero}\nClassificação: {filme.classificacao}\nDescrição: {filme.descricao}")
+            print("------------------\n")
+
         except Exception as e:
             print("Erro ao processar a resposta do servidor:", str(e))
             return
