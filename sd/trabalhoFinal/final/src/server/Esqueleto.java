@@ -4,24 +4,42 @@ import java.sql.SQLException;
 public class Esqueleto {
     private Database db;
 
-    public Esqueleto(Database db) throws SQLException {
+    public Esqueleto(Database db) {
         this.db = db;
     }
 
-    public String adicionarFilme(String arguments) throws SQLException {
+    public String adicionarFilme(String arguments) {
         Filme filme = Filme.fromJson(arguments);
-        return db.adicionarFilme(filme);
+        try {
+            return db.adicionarFilme(filme);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String removerFilme(String arguments) throws SQLException {
-        return db.removerFilme(Integer.parseInt(arguments));
+    public String removerFilme(String arguments) {
+        int id = Integer.parseInt(arguments);
+        try {
+            return db.removerFilme(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String exibirDetalhe(String arguments) throws SQLException {
-        return db.exibirDetalhe(Integer.parseInt(arguments));
+    public String exibirDetalhe(String arguments) {
+        int id = Integer.parseInt(arguments);
+        try {
+            return db.exibirDetalhe(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String mostrarCatalogo() throws SQLException {
-        return db.mostrarCatalogo();
+    public String mostrarCatalogo() {
+        try {
+            return db.mostrarCatalogo();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

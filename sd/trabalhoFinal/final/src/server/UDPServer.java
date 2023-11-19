@@ -1,48 +1,91 @@
 package org.example;
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.sql.SQLException;
-import org.json.JSONObject;
+import java.util.TreeMap;
 
 public class UDPServer {
     private DatagramSocket serverSocket;
-    private final Database db;
+    private Database db;
+    private TreeMap<String, String> lastRequest;
 
-    public UDPServer(int port) throws SocketException, SQLException {
+    public UDPServer(int port) throws IOException, SQLException {
         this.serverSocket = new DatagramSocket(port);
         this.db = new Database();
+        this.lastRequest = new TreeMap<>();
     }
 
-    public void getRequest() throws IOException, SQLException {
+    public void getRequest() throws IOException {
         byte[] receiveData = new byte[1024];
         DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
         serverSocket.receive(receivePacket);
+
         String data = new String(receivePacket.getData(), 0, receivePacket.getLength(), "UTF-8");
 
-        try {
-            JSONObject requestJson = new JSONObject(data);
-            String objectReference = requestJson.getString("objectreference");
-            int methodId = requestJson.getInt("methodId");
-            String arguments = requestJson.getString("arguments");
+        int PORT = receivePacket.getPort();
+        String requestId = data.substring(data.length() - 2, data.length() - 1);
+        String ADDR = receivePacket.getAddress().toString();
+        ADDR = ADDR.substring(1);
+        int methodId = Integer.parseInt(data.substring(59, 60));
+        String msg = "Recebido: " + data + " do cliente com IP: " + ADDR + " e PORTA: " + PORT;
 
-            Despachante despachante = new Despachante(db);
-            String response = despachante.invoke(objectReference, methodId, arguments);
+        System.out.println(msg);
 
-            JSONObject responseJson = new JSONObject();
-            responseJson.put("messageType", 0);
-            responseJson.put("objectreference", objectReference);
-            responseJson.put("methodId", methodId);
-            responseJson.put("arguments", response);
-
-            String responseStr = responseJson.toString();
-            InetAddress clientAddress = receivePacket.getAddress();
-            int clientPort = receivePacket.getPort();
-            byte[] sendData = responseStr.getBytes("UTF-8");
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, clientAddress, clientPort);
-            serverSocket.send(sendPacket);
-        } catch (Exception e) {
-            e.printStackTrace();
+        //se for duplicada, envia a última resposta
+        if (isDuplicateMessage(PORT, requestId, ADDR, methodId)) {
+            System.out.println("Mensagem duplicada. Reenviando última requisição...");
+            sendLastResponse(PORT, ADDR);
+            return;
         }
+
+        lastRequest.put("PORT", Integer.toString(PORT));
+        lastRequest.put("requestId", requestId);
+        lastRequest.put("ADDR", ADDR);
+        lastRequest.put("methodId", Integer.toString(methodId));
+
+        Despachante despachante = new Despachante(db);
+        Cabecalho responseCabecalho = despachante.invoke(data);
+
+        lastRequest.put("lastResponse", responseCabecalho.toJson());
+
+        // simula a perda de pacote com um delay de 3 segundos
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        sendResponse(responseCabecalho, receivePacket);
+    }
+
+    //verifica se a mensagem é duplicada
+    private boolean isDuplicateMessage(int PORT, String requestId, String ADDR, int methodId) {
+        return lastRequest.containsKey("PORT") && lastRequest.containsKey("requestId") &&
+                lastRequest.containsKey("ADDR") && lastRequest.containsKey("methodId") &&
+                lastRequest.get("PORT").equals(Integer.toString(PORT)) &&
+                lastRequest.get("requestId").equals(requestId) &&
+                lastRequest.get("ADDR").equals(ADDR) &&
+                lastRequest.get("methodId").equals(Integer.toString(methodId));
+    }
+
+
+    //envia a última resposta duplicada
+    private void sendLastResponse(int PORT, String ADDR) throws IOException {
+        String lastResponse = lastRequest.get("lastResponse");
+        byte[] sendData = lastResponse.getBytes("UTF-8");
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(ADDR), PORT);
+        serverSocket.send(sendPacket);
+        System.out.println("Enviado: " + lastResponse);
+    }
+
+    private void sendResponse(Cabecalho responseCabecalho, DatagramPacket receivePacket) throws IOException {
+        String responseStr = responseCabecalho.toJson();
+        byte[] sendData = responseStr.getBytes("UTF-8");
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, receivePacket.getAddress(), receivePacket.getPort());
+        serverSocket.send(sendPacket);
+        System.out.println("Enviado: " + responseStr);
     }
 
     public static void main(String[] args) throws Exception {

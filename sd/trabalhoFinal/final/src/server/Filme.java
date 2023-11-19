@@ -2,7 +2,6 @@ package org.example;
 import org.json.JSONObject;
 
 public class Filme {
-    private int id;
     private String titulo;
     private String diretor;
     private int ano;

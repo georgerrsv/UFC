@@ -29,7 +29,7 @@ public class Cabecalho {
                 headerData.getInt("messageType"),
                 headerData.getString("objectreference"),
                 headerData.getInt("methodId"),
-                headerData.getString("arguments")
+                headerData.get("arguments").toString()
         );
     }
 

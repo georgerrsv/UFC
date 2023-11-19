@@ -1,33 +1,37 @@
 package org.example;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.sql.SQLException;
 
 public class Despachante {
-    private Esqueleto esqueleto;
+    private Database db;
 
-    public Despachante(Database db) throws SQLException {
-        this.esqueleto = new Esqueleto(db);
+    public Despachante(Database db) {
+        this.db = db;
     }
 
-    public String invoke(String objectReference, int methodId, String arguments) {
-        try {
-            String response;
-            if (methodId == 1) {
-                response = esqueleto.adicionarFilme(arguments);
-            } else if (methodId == 2) {
-                response = esqueleto.removerFilme(arguments);
-            } else if (methodId == 3) {
-                response = esqueleto.exibirDetalhe(arguments);
-            } else if (methodId == 4) {
-                response = esqueleto.mostrarCatalogo();
-            } else {
-                response = "Método não reconhecido";
-            }
+    public Cabecalho invoke(String jsonStr) {
+        Cabecalho cabecalho = Cabecalho.fromJson(jsonStr);
+        int methodId = cabecalho.getMethodId();
+        String arguments = cabecalho.getArguments();
+        Esqueleto esqueleto = new Esqueleto(db);
+        String responseArguments;
 
-            return response;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        switch (methodId) {
+            case 1:
+                responseArguments = esqueleto.adicionarFilme(arguments);
+                break;
+            case 2:
+                responseArguments = esqueleto.removerFilme(arguments);
+                break;
+            case 3:
+                responseArguments = esqueleto.exibirDetalhe(arguments);
+                break;
+            case 4:
+                responseArguments = esqueleto.mostrarCatalogo();
+                break;
+            default:
+                responseArguments = "Método não reconhecido";
+                break;
         }
+
+        return new Cabecalho(1, cabecalho.getObjectReference(), methodId, responseArguments);
     }
 }

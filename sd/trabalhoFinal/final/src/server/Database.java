@@ -7,62 +7,58 @@ import org.json.JSONObject;
 
 public class Database {
     private Connection connection;
-    private PreparedStatement preparedStatement;
+    private PreparedStatement query;
 
     public Database() throws SQLException {
-        connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost/filme",
-                "postgres",
-                "admin"
-        );
+        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/filme", "admin", "admin");
     }
 
     public String adicionarFilme(Filme filme) throws SQLException {
-        preparedStatement = connection.prepareStatement("SELECT id FROM filme WHERE titulo = ?");
-        preparedStatement.setString(1, filme.getTitulo());
+        query = connection.prepareStatement("SELECT id FROM filme WHERE titulo = ?");
+        query.setString(1, filme.getTitulo());
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = query.executeQuery();
 
         if (resultSet.next()) {
-            return "\nErro: Filme ja cadastrado!\n";
+            return "Erro: Filme ja cadastrado!";
         } else {
-            preparedStatement = connection.prepareStatement("INSERT INTO filme (titulo, diretor, ano, duracao, genero, classificacao, descricao) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setString(1, filme.getTitulo());
-            preparedStatement.setString(2, filme.getDiretor());
-            preparedStatement.setInt(3, filme.getAno());
-            preparedStatement.setInt(4, filme.getDuracao());
-            preparedStatement.setString(5, filme.getGenero());
-            preparedStatement.setInt(6, filme.getClassificacao());
-            preparedStatement.setString(7, filme.getDescricao());
+            query = connection.prepareStatement("INSERT INTO filme (titulo, diretor, ano, duracao, genero, classificacao, descricao) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            query.setString(1, filme.getTitulo());
+            query.setString(2, filme.getDiretor());
+            query.setInt(3, filme.getAno());
+            query.setInt(4, filme.getDuracao());
+            query.setString(5, filme.getGenero());
+            query.setInt(6, filme.getClassificacao());
+            query.setString(7, filme.getDescricao());
 
-            int rowsAffected = preparedStatement.executeUpdate();
+            int rowsAffected = query.executeUpdate();
 
             if (rowsAffected == 1) {
-                return "\nFilme cadastrado com sucesso!\n";
+                return "Filme cadastrado com sucesso!";
             } else {
-                return "\nErro ao cadastrar filme!\n";
+                return "Erro ao cadastrar filme!";
             }
         }
     }
 
     public String removerFilme(int id) throws SQLException {
-        preparedStatement = connection.prepareStatement("DELETE FROM filme WHERE id = ?");
-        preparedStatement.setInt(1, id);
+        query = connection.prepareStatement("DELETE FROM filme WHERE id = ?");
+        query.setInt(1, id);
 
-        int rowsAffected = preparedStatement.executeUpdate();
+        int rowsAffected = query.executeUpdate();
 
         if (rowsAffected == 1) {
-            return "\nFilme removido com sucesso!\n";
+            return "Filme removido com sucesso!";
         } else {
-            return "\nFilme nao encontrado!\n";
+            return "Filme nao encontrado!";
         }
     }
 
     public String exibirDetalhe(int id) throws SQLException {
-        preparedStatement = connection.prepareStatement("SELECT * FROM filme WHERE id = ?");
-        preparedStatement.setInt(1, id);
+        query = connection.prepareStatement("SELECT * FROM filme WHERE id = ?");
+        query.setInt(1, id);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = query.executeQuery();
 
         if (resultSet.next()) {
             String titulo = resultSet.getString("titulo");
@@ -73,15 +69,16 @@ public class Database {
             int classificacao = resultSet.getInt("classificacao");
             String descricao = resultSet.getString("descricao");
 
-            return new Filme(titulo, diretor, ano, duracao, genero, classificacao, descricao).toJson();
+            Filme filme = new Filme(titulo, diretor, ano, duracao, genero, classificacao, descricao);
+            return filme.toJson();
         } else {
             return "Filme nao encontrado!";
         }
     }
 
     public String mostrarCatalogo() throws SQLException {
-        preparedStatement = connection.prepareStatement("SELECT id, titulo FROM filme");
-        ResultSet resultSet = preparedStatement.executeQuery();
+        query = connection.prepareStatement("SELECT id, titulo FROM filme");
+        ResultSet resultSet = query.executeQuery();
 
         List<JSONObject> catalogo = new ArrayList<>();
 
@@ -104,5 +101,4 @@ public class Database {
 
         return catalogoJSON;
     }
-
 }

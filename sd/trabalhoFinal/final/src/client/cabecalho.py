@@ -1,7 +1,6 @@
 from json import *
 
 class Cabecalho:
-    _requestId = 0
 
     def __init__(self, messageType, objectreference, methodId, arguments, requestId):
         self.messageType = messageType
@@ -30,8 +29,3 @@ class Cabecalho:
             headerData["arguments"],
             headerData.get("requestId", 0)
         )
-
-    @classmethod
-    def increment_request_id(cls):
-        cls._requestId += 1
-        return cls._requestId
