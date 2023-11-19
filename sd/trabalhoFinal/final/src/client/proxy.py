@@ -6,7 +6,7 @@ import time
 
 class Proxy:
     def __init__(self):
-        self.client = UDPClient('3.91.76.134', 8080)
+        self.client = UDPClient('localhost', 8080)
         self.count = 0
         self.maxCount = 3
         self.close = self.client.close
